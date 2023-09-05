@@ -1,3 +1,3 @@
-## SecurityWebScanner
+# SecurityWebScanner
 
 ## Insert Project Description:
