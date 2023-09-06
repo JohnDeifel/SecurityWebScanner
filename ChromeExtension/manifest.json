@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+    "name": "SecurityWebScanner",
+    "description": "",
+    "version": "1.0",
+    "icons": {
+      "16": "",
+      "48": "",
+      "128": "",
+    },
+  "page_action":{
+    "default_icon": {
+      "16": "",
+      "48": "",
+      "128": "",
+    }
+  },
+  "content_scripts": [{}] // all of the logic will go within these braces!!!
+}
