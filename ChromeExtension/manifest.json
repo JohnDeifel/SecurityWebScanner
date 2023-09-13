@@ -15,5 +15,7 @@
       "128": "",
     }
   },
-  "content_scripts": [{}] // all of the logic will go within these braces!!!
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["script.js"]}] 
 }
