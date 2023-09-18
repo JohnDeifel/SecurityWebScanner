@@ -1,0 +1,21 @@
+body{
+    background-color: #4a4949;
+    font-family: Helvetica, sans-serif;
+    color: white;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+#fineprint{
+    font-size: 0.75em;
+}
+
+#goback{
+    box-sizing: border-box;
+    background-color: #0ccf02;
+}
+
+#proceed{
+    box-sizing: border-box;
+    background-color: #c2221f;
+}
