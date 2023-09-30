@@ -1,25 +1,48 @@
-// import DOM?
-var script = document.createElement('script');
-script.src = 'https://code.jquery.com/jquery-3.6.3.min.js'; // Check https://jquery.com/ for the current version
-document.getElementsByTagName('head')[0].appendChild(script);
+{
+var domain;
+var timeAccessed;
+var location;
+var pageTitle;
+var rating; // out of 5 stars
 
-// Access the HTML content of the current web page
-const htmlContent = document.documentElement.outerHTML;
-const parser = new DOMParser();
-const doc = parser.parseFromString(htmlContent, "text/html");
-const rootElement = doc.documentElement; // Changed from doc.document to doc.documentElement
-const linkEls = rootElement.querySelectorAll('a');
-const linkArray = Array.from(linkEls);
+function fetchData() {
+  //domain = pass
+  
+  let event = new Date();
+  timeAccessed = event.toString();
 
-const nonGoogleLinks = []; // Create an array to store non-Google links
+  //location = pass
 
-for (let i = 0; i < linkArray.length; i += 1) {
-    if (linkArray[i].textContent.toLowerCase() === 'google.com') {
-        console.log('Welcome to Google!');
-    } else {
-        console.log('This is not Google');
-        nonGoogleLinks.push(linkArray[i].textContent); // Add link to the list
-    }
+  pageTitle = document.title;
+
+  //rating = pass
+};
+
+// https://gist.github.com/amundo/3951b04c1e0725445774
+function saveJSON(data, saveAs){
+  var stringified = JSON.stringify(data, null, 2); 
+  var blob = new Blob([stringified], {type: "application/json"});
+  var url = URL.createObjectURL(blob);
+  
+  var a = document.createElement('a');
+  a.download = saveAs + '.json';
+  a.href = url;
+  a.id = saveAs;
+  document.body.appendChild(a);
+  a.click();
+  document.querySelector('#' + a.id).remove();
 }
 
-console.log('Non-Google Links:', nonGoogleLinks); // Print the list of non-Google links
+// Refresh the data when a new link is accessed
+window.onbeforeunload = function() {
+  window.onbeforeunload = null;
+  fetchData();
+  const dataArray = {
+    eventTime: timeAccessed,
+    domainTitle: pageTitle,
+    //url: pageUrl,
+  }
+  saveJSON(dataArray, 'log')
+};
+
+}

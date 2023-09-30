@@ -1,21 +1,18 @@
 {
   "manifest_version": 3,
     "name": "SecurityWebScanner",
-    "description": "",
+    "description": "Scans Website HTML",
     "version": "1.0",
-    "icons": [
+    "permissions": ["activeTab"],
+
+    "icons": {
+      "16": "assets/icons/logo-192.png"
+    },
+
+    "content_scripts": [
       {
-        "src": "/assets/icons/logo-192",
-        "type": "image/png",
-        "sizes": "192x192"
-      },
-      {
-        "src": "/assets/icons/logo-512",
-        "type": "image/png",
-        "sizes": "512x512"
+        "matches": ["<all_urls>"],
+        "js": ["script.js"]
       }
-    ],
-  "content_scripts": [{
-    "matches": ["<all_urls>"],
-    "js": ["script.js"]}] 
+    ]
 }
