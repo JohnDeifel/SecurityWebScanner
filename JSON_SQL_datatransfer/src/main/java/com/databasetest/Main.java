@@ -5,20 +5,26 @@
 //Then adds data to the table from a given JSON file
 //******************************//
 
+//Contributor: Mohamed Trigui
+//Date modified: 10-2-2023
+
 
 package com.databasetest;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Base64;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 import com.google.gson.JsonObject;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;;
-
 public class Main {
-
+  
     public static void main(String[] args) {
         
         //jdbc:sqlserver://'hostname'\\'servername';databaseName='databasename';
@@ -31,14 +37,19 @@ public class Main {
             Connection connection = DriverManager.getConnection(url, username, password);
             System.out.println("Connected to WebScannerTest");
 
+            // Assuming ip, domain, and location are the sensitive data strings
             //Write commands in SQL using strings
-            String sql = "INSERT INTO UserData (WebsiteName, MacAddress, Domain, TimeAccessed, LocationAccessed, ReasonForBlock)" + " VALUES (?, ?, ?, ?, ?, ?)";
-            
+            String sql = "INSERT INTO UserData (WebsiteName, IPAddress, Domain, TimeAccessed, LocationAccessed, ReasonForBlock)" + " VALUES (?, ?, ?, ?, ?, ?)";
+           
             //Create a statement object in your connection to prepare a command
             //Statement statement = connection.createStatement();
 
+            //To add variables into the row, we use 'PreparedStatement'
+                PreparedStatement statement = connection.prepareStatement(sql);
+
             //Creates data using our ReadJsonClass
             ReadJsonClass data = new ReadJsonClass(".\\jsonfiles\\userdata.json");
+
             try {
                 //Calls the readFile method in our data object and puts it into a JsonObject called fileData
                 //This allows us to put the created Json Object produced by readFile
@@ -46,13 +57,26 @@ public class Main {
                 JsonObject fileData = data.readFile();
                 String[] dataArray = data.createArray(fileData);
 
-                //To add variables into the row, we use 'PreparedStatement'
-                PreparedStatement statement = connection.prepareStatement(sql);
+                
 
                 //We then use statement.setVariableType(index, VariableType) to add variables into the row
-                for (int i = 1, y = 0; i <= 6 && y <= 5; i++, y++) {
-                    statement.setString(i, dataArray[y]);
-                }
+                //for (int i = 1, y = 0; i <= 6 && y <= 5; i++, y++) {
+                //    statement.setString(i, dataArray[y]);
+                //}
+
+                // Encrypt sensitive data before insertion
+                String encryptedIpAddress = EncryptionUtil.encrypt(dataArray[1]);
+                String encryptedDomain = EncryptionUtil.encrypt(dataArray[2]);
+                String encryptedLocation = EncryptionUtil.encrypt(dataArray[4]);
+
+                statement.setString(1, dataArray[0]);
+                statement.setString(2, encryptedIpAddress);
+                statement.setString(3, encryptedDomain);
+                statement.setString(4, dataArray[3]);
+                statement.setString(5, encryptedLocation);
+                statement.setString(6, dataArray[5]);
+
+                
                 //Adds the statement to our table
                 int rows = statement.executeUpdate();
 
@@ -73,6 +97,30 @@ public class Main {
         catch (SQLException e) {
             System.out.println("Connection failed, try again");
             e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Encryption failed");
+            e.printStackTrace();
         }
+    }
+}
+
+class EncryptionUtil {
+    private static final String SECRET_KEY = "YourSecretKey"; // I will figure out a way to manage the keys
+    private static final String ALGORITHM = "AES";
+
+    public static String encrypt(String data) throws Exception {
+        SecretKeySpec key = new SecretKeySpec(SECRET_KEY.getBytes(), ALGORITHM);
+        Cipher cipher = Cipher.getInstance(ALGORITHM);
+        cipher.init(Cipher.ENCRYPT_MODE, key);
+        byte[] encryptedData = cipher.doFinal(data.getBytes());
+        return Base64.getEncoder().encodeToString(encryptedData);
+    }
+
+    public static String decrypt(String encryptedData) throws Exception {
+        SecretKeySpec key = new SecretKeySpec(SECRET_KEY.getBytes(), ALGORITHM);
+        Cipher cipher = Cipher.getInstance(ALGORITHM);
+        cipher.init(Cipher.DECRYPT_MODE, key);
+        byte[] decryptedData = cipher.doFinal(Base64.getDecoder().decode(encryptedData));
+        return new String(decryptedData);
     }
 }
