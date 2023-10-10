@@ -14,6 +14,7 @@ function fetchData() {
   //location = pass
 
   pageTitle = document.title;
+  pageURL = window.location.href;
 
   //rating = pass
 };
@@ -40,7 +41,7 @@ window.onbeforeunload = function() {
   const dataArray = {
     eventTime: timeAccessed,
     domainTitle: pageTitle,
-    //url: pageUrl,
+    domainURL: pageURL,
   }
   saveJSON(dataArray, 'log')
 };
