@@ -43,6 +43,7 @@ window.onbeforeunload = function() {
     domainTitle: pageTitle,
     domainURL: pageURL,
   }
+  // add condition to only saveJSON is rating is below acceptable
   saveJSON(dataArray, 'log')
 };
 
