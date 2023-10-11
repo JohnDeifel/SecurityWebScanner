@@ -34,14 +34,37 @@ function saveJSON(data, saveAs){
   document.querySelector('#' + a.id).remove();
 }
 
+// Return the html of the page
+function getHTML() {
+  pageHTML = document.documentElement.outerHTML;
+  return pageHTML;
+}
+
+// Get all links on the page
+function getLinks() {
+  var links = document.getElementsByTagName('a');
+  var linksArray = [];
+  for (var i = 0; i < links.length; i++) {
+    linksArray.push(links[i].href);
+  }
+  // 
+  return linksArray;
+}
+
+// TODO: Fetch the user's IP address
+
+// TODO: Fetch the user's location
+
 // Refresh the data when a new link is accessed
-window.onbeforeunload = function() {
-  window.onbeforeunload = null;
+window.onload = function() {
+  window.onload = null;
   fetchData();
   const dataArray = {
     eventTime: timeAccessed,
     domainTitle: pageTitle,
     domainURL: pageURL,
+    domainHTML: getHTML(),
+    domainLinks: getLinks(),
   }
   // add condition to only saveJSON is rating is below acceptable
   saveJSON(dataArray, 'log')
