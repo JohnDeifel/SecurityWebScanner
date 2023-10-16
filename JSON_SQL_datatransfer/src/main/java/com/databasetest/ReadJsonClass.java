@@ -1,66 +1,59 @@
 //******************************//
 //Author: Kaleb Austgen
+// Co-author: Allysa Cao
 //Date Created: 9-13-2023
 //Class that parses the given Json file into something we can put in our database
 //******************************//
 
 package com.databasetest;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonParseException;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 public class ReadJsonClass {
 
     //Private variable
-    private String filename; 
+    private JsonArray jsonArray;
 
     //Constructor makes ReadJsonClass
-    public ReadJsonClass(String filename) {
-        this.filename = filename;
+    public ReadJsonClass(JsonArray jsonArray) {
+        this.jsonArray = jsonArray;
     }
 
     //Reads the file and returns a json object of the data
-    public JsonObject readFile() throws IOException, JsonParseException, FileNotFoundException {
-        //Creates a new JsonParser object to read the json file
-        JsonParser jsonparser = new JsonParser();
+    public String[] createArrayFromJsonArray(JsonArray jsonArray) {
+        int size = jsonArray.size();
+        String[] result = new String[size];
 
-        //Creates a FileReader object to read the inputted filename
-        FileReader reader = new FileReader(filename);
+        for (int i = 0; i < size; i++) {
+            JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
+            String[] dataArray = createArray(jsonObject);
+            result[i] = String.join(",", dataArray);
+        }
 
-        //Uses JsonParser to parse the file, and puts into a Java Object then returns
-        Object obj = jsonparser.parse(reader);
-
-        //Turns the given object into a JsonObject
-        JsonObject jsonObject = (JsonObject) obj;
-        return jsonObject;
+        return result;
     }
 
     //Creates strings for each column in our database, takes the json data and puts into an array
-    public String[] createArray(JsonObject jsonObject) {
-        //String creation
-        String websiteNameQuote = jsonObject.get("WebsiteName").toString();
-        String macAddressQuote = jsonObject.get("MacAddress").toString();
-        String domainQuote = jsonObject.get("Domain").toString();
-        String timeAccessedQuote = jsonObject.get("TimeAccessed").toString();
-        String locationAccessedQuote = jsonObject.get("LocationAccessed").toString();
-        String reasonForBlockQuote = jsonObject.get("ReasonForBlock").toString();
+   public String[] createArray(JsonObject jsonObject) {
+    String[] jsonData = {
+        getStringValue(jsonObject, "WebsiteName"),
+        getStringValue(jsonObject, "MacAddress"),
+        getStringValue(jsonObject, "Domain"),
+        getStringValue(jsonObject, "TimeAccessed"),
+        getStringValue(jsonObject, "LocationAccessed"),
+        getStringValue(jsonObject, "ReasonForBlock")
+    };
+    return jsonData;
+}
 
-        //Removing the quotes from the strings using substring
-        String websiteName = websiteNameQuote.substring(1, websiteNameQuote.length() -1);
-        String macAddress = macAddressQuote.substring(1, macAddressQuote.length() -1);
-        String domain = domainQuote.substring(1, domainQuote.length() -1);
-        String timeAccessed = timeAccessedQuote.substring(1, timeAccessedQuote.length() -1);
-        String locationAccessed = locationAccessedQuote.substring(1, locationAccessedQuote.length() -1);
-        String reasonForBlock = reasonForBlockQuote.substring(1, reasonForBlockQuote.length() -1);
-
-        //Array Creation
-        String[] jsonData = {websiteName, macAddress, domain, timeAccessed, locationAccessed, reasonForBlock};
-        //Returns the array
-        return jsonData;
-    }
+    private String getStringValue(JsonObject jsonObject, String key) {
+        JsonElement element = jsonObject.get(key);
+        if (element != null) {
+            return element.getAsString();
+        }
+        return "";
+}
 }
