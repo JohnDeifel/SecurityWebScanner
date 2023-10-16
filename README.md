@@ -11,6 +11,7 @@ Simply install it into a Google Chrome browser as an extension. In its current s
 ## User Data:
 Users have the right to know what data will be recorded from them. Whenever a malicious website is caught due to a low star rating, that website will be stored in the extension's data base as well as various other information such as:
 - Website Name
+- IP Address
 - Domain
 - TimeStamp
 - Location accessed
@@ -21,7 +22,13 @@ There will be a variety of certain points of interest that will weigh that websi
 - Domain Age
 - Google Index
 - Website Hosting Location
-- Treated by a link shortener
 - Known malicious link
-- Invalid Link
-
+- Valid Certificate
+- Web Content
+    * HTML
+- URL features
+    * Treated by a link shortener
+    * Invalid Link
+    * @ symbol found in URL
+    * Redirecting using "//"
+    * Adding Prefix or Suffix Separated by (-) to the Domain
