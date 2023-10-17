@@ -23,15 +23,38 @@ function fetchData() {
 function saveJSON(data, saveAs){
   var stringified = JSON.stringify(data, null, 2); 
   var blob = new Blob([stringified], {type: "application/json"});
-  var url = URL.createObjectURL(blob);
+  var url1 = URL.createObjectURL(blob);
   
   var a = document.createElement('a');
   a.download = saveAs + '.json';
-  a.href = url;
+  a.href = url1;
   a.id = saveAs;
   document.body.appendChild(a);
   a.click();
   document.querySelector('#' + a.id).remove();
+
+  // send to sql server with fetch api
+  const url2 = 'dbc:sqlserver://ipro497.database.windows.net:1433;database=iprowebscanner;user=test@ipro497;password={Shambhawi@123};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;'; 
+
+  fetch(url2, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: blob,
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Response from server:', data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 }
 
 // Return the html of the page
@@ -71,3 +94,9 @@ window.onload = function() {
 };
 
 }
+
+
+/*
+Apparently we have to ensure that CORS (Cross-Origin Resource Sharing) settings on our Azure server allows requests from the origin of our JavaScript application, that is something I will work on shortly.
+*/
+
