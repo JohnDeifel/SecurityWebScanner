@@ -34,7 +34,8 @@ function saveJSON(data, saveAs){
   document.querySelector('#' + a.id).remove();
 
   // send to sql server with fetch api
-  const url2 = 'dbc:sqlserver://ipro497.database.windows.net:1433;database=iprowebscanner;user=test@ipro497;password={Shambhawi@123};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;'; 
+  // add link to server, not the database
+  const url2 = ''; 
 
   fetch(url2, {
     method: 'POST',
