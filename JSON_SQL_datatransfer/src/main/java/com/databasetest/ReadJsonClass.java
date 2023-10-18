@@ -1,6 +1,7 @@
 //******************************//
 //Author: Kaleb Austgen
 // Co-author: Allysa Cao
+// Comtributor: Verica Karanakova
 //Date Created: 9-13-2023
 //Class that parses the given Json file into something we can put in our database
 //******************************//
