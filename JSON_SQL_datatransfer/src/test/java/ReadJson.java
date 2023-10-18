@@ -25,7 +25,7 @@ public class ReadJson {
 
         //Makes all the JsonObjects into strings so we can transfer the data
         String websiteName = jsonObject.get("WebsiteName").toString();
-        String macAddress = jsonObject.get("MacAddress").toString();
+        String IPAddress = jsonObject.get("IPAddress").toString();
         String domain = jsonObject.get("Domain").toString();
         String timeAccessed = jsonObject.get("TimeAccessed").toString();
         String locationAccessed = jsonObject.get("LocationAccessed").toString();
@@ -36,7 +36,7 @@ public class ReadJson {
         //return (websiteName + macAddress + domain + timeAccessed + locationAccessed + reasonForBlock);
         //Populates jsonData array with the string data parsed from the Json file
         jsonData[0] = websiteName;
-        jsonData[1] = macAddress;
+        jsonData[1] = IPAddress;
         jsonData[2] = domain;
         jsonData[3] = timeAccessed;
         jsonData[4] = locationAccessed;

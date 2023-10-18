@@ -32,7 +32,7 @@ public class DatabaseClass {
         Connection connection = DriverManager.getConnection(url, username, password);
         System.out.println("Connected to the database");
 
-        String sql = "INSERT INTO UserData (WebsiteName, MacAddress, Domain, TimeAccessed, LocationAccessed, ReasonForBlock) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO UserData (WebsiteName, IPAddress, Domain, TimeAccessed, LocationAccessed, ReasonForBlock) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
 
         for (String data : dataArray) {
