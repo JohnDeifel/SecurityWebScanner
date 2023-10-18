@@ -40,7 +40,7 @@ public class ReadJsonClass {
    public String[] createArray(JsonObject jsonObject) {
     String[] jsonData = {
         getStringValue(jsonObject, "WebsiteName"),
-        getStringValue(jsonObject, "MacAddress"),
+        getStringValue(jsonObject, "IPAddress"),
         getStringValue(jsonObject, "Domain"),
         getStringValue(jsonObject, "TimeAccessed"),
         getStringValue(jsonObject, "LocationAccessed"),
