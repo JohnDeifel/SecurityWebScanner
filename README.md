@@ -32,3 +32,4 @@ There will be a variety of certain points of interest that will weigh that websi
     * @ symbol found in URL
     * Redirecting using "//"
     * Adding Prefix or Suffix Separated by (-) to the Domain
+    * Presence of ASCII characters similar to the English alphabet
