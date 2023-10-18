@@ -35,7 +35,7 @@ function saveJSON(data, saveAs){
 
   // send to sql server with fetch api
   // add link to server, not the database
-  const url2 = ''; 
+  const url2 = 'Driver={ODBC Driver 18 for SQL Server};Server=tcp:ipro497.database.windows.net,1433;Database=iprowebscanner;Uid=test;Pwd={Shambhawi@123};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'; 
 
   fetch(url2, {
     method: 'POST',
