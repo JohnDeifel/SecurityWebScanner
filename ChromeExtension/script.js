@@ -26,7 +26,7 @@ function saveJSON(data, saveAs){
   var url = URL.createObjectURL(blob);
   
   var a = document.createElement('a');
-  a.download = saveAs + '.json';
+  // a.download = saveAs + '.json';
   a.href = url;
   a.id = saveAs;
   document.body.appendChild(a);
@@ -63,7 +63,6 @@ window.onload = function() {
     eventTime: timeAccessed,
     domainTitle: pageTitle,
     domainURL: pageURL,
-    domainHTML: getHTML(),
     domainLinks: getLinks(),
   }
   // add condition to only saveJSON is rating is below acceptable
