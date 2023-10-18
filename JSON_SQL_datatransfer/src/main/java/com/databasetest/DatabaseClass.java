@@ -1,6 +1,6 @@
 /*
 Author : Allysa Cao
-// Comtributor: Verica Karanakova
+// Contributor: Verica Karanakova
 Date Created: 10-16-2023
 DatabaseClass: connection to the database with JsonArray
  */

@@ -1,7 +1,7 @@
 //******************************//
 //Author: Kaleb Austgen
 // Co-author: Allysa Cao
-// Comtributor: Verica Karanakova
+// Contributor: Verica Karanakova
 //Date Created: 9-13-2023
 //Opens connection to our server and allows interaction of data between the website and server
 //Then adds data to the table from a given JSON file
