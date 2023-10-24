@@ -15,8 +15,6 @@ function fetchData() {
 
   pageTitle = document.title;
   pageURL = window.location.href;
-
-  //rating = pass
 };
 
 // https://gist.github.com/amundo/3951b04c1e0725445774
@@ -91,12 +89,12 @@ function getLinks() {
 };
 
 // Return true if URL is https otherwise false
-function isSecure() {
+function isHttps() {
   if(window.location.protocol === 'https:'){
-    return true;
+    // return true;
   } else {
-    rating = rating - 2.5;
-    return false;
+    rating -= 1;
+    // return false;
   };
 };
 
@@ -104,21 +102,22 @@ function isSecure() {
 function isShortened() {
   pageURL = window.location.href;
   if ((pageURL.includes('bit.ly')) || (pageURL.includes('tinyurl'))){
-    rating -= 2.5;
-    return true;
-  } else {
+    rating -= 1;
+    // return true;
+  } /* else {
     return false;
-  };
+  }*/;
 };
 
 // Return true if URL includes @ symbol (common phishing tactic)
 function hasAt() {
   pageURL = window.location.href;
   if (pageURL.includes('@')){
-    return true;
-  } else {
+    rating -= 1;
+    // return true;
+  } /* else {
     return false;
-  }
+  }*/;
 }
 
 // TODO: Fetch the user's IP address
@@ -129,14 +128,17 @@ function hasAt() {
 window.onload = function() {
   window.onload = null;
   fetchData();
+  isHttps();
+  isShortened();
+  hasAt();
   if (rating < 0){
     rating = 0;
   }
-  if (!(isSecure()) || (isShortened())){
-    window.alert("Page is insecure.");
+  if (rating <= 3){
+    window.alert("Page is insecure. Star Rating: " + rating);
   }
   else{
-    window.alert("Page is secure.");
+    window.alert("Page is secure. Star Rating: " + rating);
   }
   const dataArray = {
     eventTime: timeAccessed,
