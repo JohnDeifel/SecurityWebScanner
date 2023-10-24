@@ -100,7 +100,7 @@ function isSecure() {
   };
 };
 
-// Return true if URL is  shorted, false if not shortened
+// Return true if URL is shortened, false if not shortened
 function isShortened() {
   pageURL = window.location.href;
   if ((pageURL.includes('bit.ly')) || (pageURL.includes('tinyurl'))){
@@ -110,6 +110,17 @@ function isShortened() {
     return false;
   };
 };
+
+// Return true if URL includes @ symbol (common phishing tactic)
+function hasAt() {
+  pageURL = window.location.href;
+  if (pageURL.includes('@')){
+    return true;
+  } else {
+    return false;
+  }
+}
+
 // TODO: Fetch the user's IP address
 
 // TODO: Fetch the user's location
