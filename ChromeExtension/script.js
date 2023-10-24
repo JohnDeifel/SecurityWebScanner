@@ -139,7 +139,7 @@ window.onload = function() {
   }
   else{
     window.alert("Page is secure. Star Rating: " + rating);
-  }
+  } // in the future we have to make sure nothing happens if the page is secure
   const dataArray = {
     eventTime: timeAccessed,
     domainTitle: pageTitle,
