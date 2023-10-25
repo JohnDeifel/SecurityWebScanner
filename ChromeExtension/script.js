@@ -109,22 +109,22 @@ window.onload = function() {
   hasAt();
   if (rating < 0){
     rating = 0;
-  }
+  };
   if (rating <= 3){
     window.alert("Page is insecure. Star Rating: " + rating);
   }
   else{
     window.alert("Page is secure. Star Rating: " + rating);
-  } // in the future we have to make sure nothing happens if the page is secure
+  }; // in the future we have to make sure nothing happens if the page is secure
   const dataArray = {
     eventTime: timeAccessed,
     domainTitle: pageTitle,
     domainURL: pageURL,
     domainSecure: isSecure(),
     domainLinks: getLinks(),
-  }
+  };
   
-  console.log(saveJSON(dataArray))
+  console.log(saveJSON(dataArray));
   // add condition to only saveJSON is rating is below acceptable
   // saveJSON(dataArray, 'log')
 };
