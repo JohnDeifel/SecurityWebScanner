@@ -94,7 +94,7 @@ function hasAt() {
   } /* else {
     return false;
   }*/;
-}
+};
 
 // TODO: Fetch the user's IP address
 
