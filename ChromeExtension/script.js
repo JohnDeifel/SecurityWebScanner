@@ -45,7 +45,7 @@ fetch(url2, {
   .catch(error => {
     console.error('Error:', error);
   });
-}
+};
 
 // Return the html of the page
 function getHTML() {
