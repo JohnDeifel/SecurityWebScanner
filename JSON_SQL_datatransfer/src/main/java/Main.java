@@ -1,5 +1,4 @@
-
-
+//Author: Kaleb Austgen
 import com.databasetest.DBC;
 
 public class Main {

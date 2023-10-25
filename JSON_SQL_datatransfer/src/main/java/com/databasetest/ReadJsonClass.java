@@ -1,6 +1,6 @@
 //******************************//
 //Author: Kaleb Austgen
-// Co-author: Allysa Cao
+//Contributor: Allysa Cao, Verica Karanakova
 //Date Created: 9-13-2023
 //Class that parses the given Json file into something we can put in our database
 //******************************//
@@ -40,7 +40,7 @@ public class ReadJsonClass {
    public String[] createArray(JsonObject jsonObject) {
     String[] jsonData = {
         getStringValue(jsonObject, "WebsiteName"),
-        getStringValue(jsonObject, "MacAddress"),
+        getStringValue(jsonObject, "IPAddress"),
         getStringValue(jsonObject, "Domain"),
         getStringValue(jsonObject, "TimeAccessed"),
         getStringValue(jsonObject, "LocationAccessed"),
