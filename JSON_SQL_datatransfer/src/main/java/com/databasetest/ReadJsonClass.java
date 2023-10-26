@@ -22,10 +22,11 @@ public class ReadJsonClass {
         this.jsonArray = jsonArray;
     }
 
-    //Reads the file and returns a json object of the data
+    //Takes a jsonArray and formats it into a string array
     public String[] createArrayFromJsonArray(JsonArray jsonArray) {
         int size = jsonArray.size();
         String[] result = new String[size];
+        System.out.println(result.length);
 
         for (int i = 0; i < size; i++) {
             JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
@@ -47,13 +48,15 @@ public class ReadJsonClass {
         getStringValue(jsonObject, "ReasonForBlock")
     };
     return jsonData;
-}
+} 
 
+    //Takes a jsonObject and a key (name of that "row" in the json object)
+    //and returns it as a string
     private String getStringValue(JsonObject jsonObject, String key) {
         JsonElement element = jsonObject.get(key);
         if (element != null) {
             return element.getAsString();
         }
         return "";
-}
+    }
 }

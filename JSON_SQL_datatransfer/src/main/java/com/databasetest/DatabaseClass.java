@@ -34,7 +34,7 @@ public class DatabaseClass {
     }
 
     //Method that takes a jsonArray and array of strings
-    public void insertDataFromJson(JsonArray jsonArray, String[] dataArray) {
+    public void insertDataFromJson(String[] dataArray) {
     try {
         //Creates the connection using the given url, username and password
         Connection connection = DriverManager.getConnection(url, username, password);
