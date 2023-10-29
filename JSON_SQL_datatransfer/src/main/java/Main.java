@@ -15,13 +15,13 @@ public class Main {
         ipAddress.addProperty("IPAddress", "8.8.8.8");
 
         JsonObject domain = new JsonObject();
-        domain.addProperty("Domain", "AnotherExample");
+        domain.addProperty("Domain", "ITWORKS");
 
         JsonObject timeAccessed = new JsonObject();
         timeAccessed.addProperty("TimeAccessed", "2:15pm, 10-26-23");
 
         JsonObject locationAccessed = new JsonObject();
-        locationAccessed.addProperty("LocationAccseed", "Denver, Colorado");
+        locationAccessed.addProperty("LocationAccessed", "Denver, Colorado");
 
         JsonObject reasonForBlock = new JsonObject();
         reasonForBlock.addProperty("ReasonForBlock", "Account Suspicion");

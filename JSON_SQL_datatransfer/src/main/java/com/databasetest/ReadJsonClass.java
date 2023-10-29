@@ -31,9 +31,18 @@ public class ReadJsonClass {
         for (int i = 0; i < size; i++) {
             JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
             String[] dataArray = createArray(jsonObject);
-            result[i] = String.join(",", dataArray);
+            //result[i] = String.join(",", dataArray);
+            StringBuilder joinedData = new StringBuilder();
+            for (String data : dataArray) {
+                if (data != null && !data.isEmpty()) {
+                    if (joinedData.length() > 0) {
+                        joinedData.append(",");
+                    }
+                    joinedData.append(data);
+                }
+            }
+            result[i] = joinedData.toString();
         }
-
         return result;
     }
 

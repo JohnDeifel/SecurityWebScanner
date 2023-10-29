@@ -45,18 +45,29 @@ public class DatabaseClass {
         PreparedStatement statement = connection.prepareStatement(sql);
 
         //Formats the data
-        for (String data : dataArray) {
-            var dataParts = data.split(",");
-            for (int i = 1; i <= 6; i++) {
-                statement.setString(i, dataParts[i - 1]);
-            }
+        for (int i = 0; i < 6; i++) {
+            System.out.println(dataArray[i]);
 
-            int rows = statement.executeUpdate();
-
-            if (rows > 0) {
-                System.out.println("Rows have been inserted.");
-            }
         }
+        for (String data : dataArray) {
+            int size = dataArray.length;
+            System.out.println(dataArray.length);
+            System.out.println(data);
+            //var dataParts = data.split(",");
+            System.out.println("dataParts length: " + dataArray.length);
+            for (int i = 1; i <= size; i++) {
+                System.out.println("Setting index " + i + " with value: " + dataArray[i - 1]);
+                statement.setString(i, dataArray[i - 1]);
+            }
+
+            
+        }
+        int rows = statement.executeUpdate();
+
+        if (rows > 0) {
+            System.out.println("Rows have been inserted.");
+        }
+        
         connection.close();
     } catch (SQLException e) {
         System.out.println("Connection failed, try again");
