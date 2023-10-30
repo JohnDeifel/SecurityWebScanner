@@ -8,36 +8,23 @@
 package com.databasetest;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
+//Author: Kaleb Austgen
+//DBC Class takes a jsonArray returns void
+//Calls class to create connection to server
 public class DBC {
 
     public void dbc(JsonArray jsonArray) {
+        //Variables to connect to the server
         //jdbc:sqlserver://'hostname'\\'servername';databaseName='databasename';
         String url = "jdbc:sqlserver://ipro497.database.windows.net:1433;database=iprowebscanner;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30";
         String username = "test";
         String password = "Shambhawi@123";
+
+        //Call DatabaseClass to connect to the server using the given variables
         DatabaseClass dbClass = new DatabaseClass(url, username, password);
 
-        //Provide the path to your JSON file
-        //String jsonFilePath = "/Users/dieucao3011/SecurityWebScanner/JSON_SQL_datatransfer/jsonfiles/userdata.json";
-
-        // Create a JsonParser to parse the JSON file
-        //JsonParser jsonParser = new JsonParser();
-        //JsonElement jsonElement = jsonParser.parse(jsonObject);
-        /*
-        // Create a FileReader to read the JSON file
-        FileReader reader = new FileReader(jsonFilePath);
-
-        // Use the JsonParser to parse the file and convert it to a JsonElement
-        JsonElement jsonElement = jsonParser.parse(reader);
-        */
-
-        // Check if the parsed element is a JsonArray
-        // Cast the element to a JsonArray
-        // Create data array from the JSON array
+        //Convert the jsonArray to a String[] array for the SQL injection
         String[] dataArray = new ReadJsonClass(jsonArray).createArrayFromJsonArray(jsonArray);
 
         // Call the insertDataFromJson method with the JsonArray and data array

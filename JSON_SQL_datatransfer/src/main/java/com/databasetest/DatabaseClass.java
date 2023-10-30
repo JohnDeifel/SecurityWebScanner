@@ -11,9 +11,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
-import com.google.gson.JsonArray;
-
 /**
  *
  * @author dieucao3011
@@ -33,7 +30,9 @@ public class DatabaseClass {
         this.password = password;
     }
 
-    //Method that takes a jsonArray and array of strings
+    //Edited: Kaleb Austgen
+    //Date: 10-29-22
+    //Method that takes a String[] array and then executes the update to the SQL server
     public void insertDataFromJson(String[] dataArray) {
     try {
         //Creates the connection using the given url, username and password
@@ -44,19 +43,28 @@ public class DatabaseClass {
         String sql = "INSERT INTO UserData (WebsiteName, IPAddress, Domain, TimeAccessed, LocationAccessed, ReasonForBlock) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
 
-        //Formats the data
+        //Debug
         for (int i = 0; i < 6; i++) {
             System.out.println(dataArray[i]);
 
         }
+        //Iterates through dataArray - array that contains all the jsonArray data to give to the SQL update
         for (String data : dataArray) {
             int size = dataArray.length;
+
+            //Debug
             System.out.println(dataArray.length);
             System.out.println(data);
-            //var dataParts = data.split(",");
+
+            //Debug
             System.out.println("dataParts length: " + dataArray.length);
+
+
             for (int i = 1; i <= size; i++) {
+                //Debug
                 System.out.println("Setting index " + i + " with value: " + dataArray[i - 1]);
+
+                //Stringifies the array
                 statement.setString(i, dataArray[i - 1]);
             }
 

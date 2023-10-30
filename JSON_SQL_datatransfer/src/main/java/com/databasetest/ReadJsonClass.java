@@ -15,32 +15,46 @@ import com.google.gson.JsonElement;
 public class ReadJsonClass {
 
     //Private variable
-    private JsonArray jsonArray;
+    protected JsonArray jsonArray;
 
     //Constructor makes ReadJsonClass
     public ReadJsonClass(JsonArray jsonArray) {
         this.jsonArray = jsonArray;
     }
 
+
+    //Edited: Kaleb Austgen
+    //10-29-22
     //Takes a jsonArray and formats it into a string array
     public String[] createArrayFromJsonArray(JsonArray jsonArray) {
         int size = jsonArray.size();
         String[] result = new String[size];
+
+        //Debug
         System.out.println(result.length);
 
+        
         for (int i = 0; i < size; i++) {
+            //Gets each jsonObject within the jsonArray
             JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
+
+            //Creates a string[] array containing the jsonObjects
             String[] dataArray = createArray(jsonObject);
-            //result[i] = String.join(",", dataArray);
+
+            //Uses a StringBuilder to append all the jsonObjects to the dataArray
             StringBuilder joinedData = new StringBuilder();
             for (String data : dataArray) {
+
+                //If data is not empty, append it to joinedData
                 if (data != null && !data.isEmpty()) {
+                    //If there is no data then append a comma
                     if (joinedData.length() > 0) {
                         joinedData.append(",");
                     }
                     joinedData.append(data);
                 }
             }
+            //Return all the data and stringify it
             result[i] = joinedData.toString();
         }
         return result;

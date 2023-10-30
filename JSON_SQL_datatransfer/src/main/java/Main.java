@@ -1,13 +1,16 @@
+//******************************//
 //Author: Kaleb Austgen
+//Date: 10-29-22
+//Purpose: Main test class to simulate the frontend code
+//Creates an array of jsonObjects to feed into the rest of the backend code
+//******************************//
 import com.databasetest.DBC;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 
 public class Main {
     public static void main(String[] args){
-        //JsonParser jsonParser = new JsonParser();
-        //String trimmed = jsonString.trim();
-        //JsonElement jsonElement = jsonParser.parse(jsonString);
+        //JsonObject instances with the value of column name and value or a row name
         JsonObject websiteName = new JsonObject();
         websiteName.addProperty("WebsiteName", "AnotherExample.com");
 
@@ -26,6 +29,7 @@ public class Main {
         JsonObject reasonForBlock = new JsonObject();
         reasonForBlock.addProperty("ReasonForBlock", "Account Suspicion");
 
+        //Add each object to the created jsonArray
         JsonArray jsonArray = new JsonArray();
         jsonArray.add(websiteName);
         jsonArray.add(ipAddress);
@@ -33,10 +37,13 @@ public class Main {
         jsonArray.add(timeAccessed);
         jsonArray.add(locationAccessed);
         jsonArray.add(reasonForBlock);
+        //Debug
         System.out.println(jsonArray);
         int size = jsonArray.size();
+        //Debug
         System.out.println(size);
         
+        //Call DBC
         DBC connection = new DBC();
         connection.dbc(jsonArray);
     }
