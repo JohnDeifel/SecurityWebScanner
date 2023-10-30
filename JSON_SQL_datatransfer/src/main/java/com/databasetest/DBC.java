@@ -9,7 +9,6 @@ package com.databasetest;
 
 import com.google.gson.JsonArray;
 
-//Author: Kaleb Austgen
 //DBC Class takes a jsonArray returns void
 //Calls class to create connection to server
 public class DBC {

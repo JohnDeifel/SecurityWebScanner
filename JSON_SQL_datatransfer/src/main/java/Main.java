@@ -8,6 +8,7 @@ import com.databasetest.DBC;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 
+//testing class
 public class Main {
     public static void main(String[] args){
         //JsonObject instances with the value of column name and value or a row name
