@@ -80,6 +80,7 @@
   
   // Refresh the data when a new link is accessed
   window.onload = function() {
+    safe = true;
     window.onload = null;
     fetchData();
     if (rating < 0){
@@ -87,6 +88,7 @@
     }
     if (!(isSecure()) || (isShortened())){
       window.alert("Page is insecure.");
+      safe = false;
     }
     else{
       window.alert("Page is secure.");
@@ -100,6 +102,9 @@
     }
     
     console.log(saveJSON(dataArray))
+    if (!safe) {
+      chrome.tabs.create({url:chrome.runtime.getURL("/page/blocked.html")});
+    }
     // add condition to only saveJSON is rating is below acceptable
     // saveJSON(dataArray, 'log')
   };
