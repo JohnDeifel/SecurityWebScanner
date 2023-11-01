@@ -104,6 +104,7 @@
     console.log(saveJSON(dataArray))
     if (!safe) {
       chrome.tabs.create({url:chrome.runtime.getURL("/page/blocked.html")});
+      console.log("everyone hates you.");
     }
     // add condition to only saveJSON is rating is below acceptable
     // saveJSON(dataArray, 'log')
