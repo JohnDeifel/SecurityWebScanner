@@ -30,8 +30,6 @@ public class ReadJsonClass {
         int size = jsonArray.size();
         String[] result = new String[size];
 
-        //Debug
-        System.out.println(result.length);
 
         
         for (int i = 0; i < size; i++) {

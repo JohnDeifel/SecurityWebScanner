@@ -38,11 +38,6 @@ public class Main {
         jsonArray.add(timeAccessed);
         jsonArray.add(locationAccessed);
         jsonArray.add(reasonForBlock);
-        //Debug
-        System.out.println(jsonArray);
-        int size = jsonArray.size();
-        //Debug
-        System.out.println(size);
         
         //Call DBC
         DBC connection = new DBC();
