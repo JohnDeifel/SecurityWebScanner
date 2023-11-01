@@ -90,7 +90,7 @@
       window.alert("Page is insecure.");
       safe = false;
     }
-    else{
+    else {
       window.alert("Page is secure.");
     }
     const dataArray = {
@@ -101,7 +101,7 @@
       domainLinks: getLinks(),
     }
     
-    console.log(saveJSON(dataArray))
+    // console.log(saveJSON(dataArray))
     if (!safe) {
       chrome.tabs.create({url:chrome.runtime.getURL("/page/blocked.html")});
       window.alert("everyone hates you.");
