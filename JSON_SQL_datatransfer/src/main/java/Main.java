@@ -1,6 +1,6 @@
 //******************************//
 //Author: Kaleb Austgen
-//Date: 10-29-22
+//Date Created: 10-29-22
 //Purpose: Main test class to simulate the frontend code
 //Creates an array of jsonObjects to feed into the rest of the backend code
 //******************************//
