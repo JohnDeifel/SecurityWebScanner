@@ -80,15 +80,16 @@
   
   // Refresh the data when a new link is accessed
   window.onload = function() {
+    safe = true;
     window.onload = null;
     fetchData();
     if (rating < 0){
       rating = 0;
     }
     if (!(isSecure()) || (isShortened())){
-      window.alert("Page is insecure.");
+      window.alert("This page is insecure. Proceed at your own risk, further details can be found by clicking on your HawkPhish extension.");
     }
-    else{
+    else {
       window.alert("Page is secure.");
     }
     const dataArray = {
@@ -99,7 +100,7 @@
       domainLinks: getLinks(),
     }
     
-    console.log(saveJSON(dataArray))
+    // console.log(saveJSON(dataArray))
     // add condition to only saveJSON is rating is below acceptable
     // saveJSON(dataArray, 'log')
   };
