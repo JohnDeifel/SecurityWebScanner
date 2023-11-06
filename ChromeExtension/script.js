@@ -87,8 +87,7 @@
       rating = 0;
     }
     if (!(isSecure()) || (isShortened())){
-      window.alert("Page is insecure.");
-      safe = false;
+      window.alert("This page is insecure. Proceed at your own risk, further details can be found by clicking on your HawkPhish extension.");
     }
     else {
       window.alert("Page is secure.");
@@ -102,10 +101,6 @@
     }
     
     // console.log(saveJSON(dataArray))
-    if (!safe) {
-      chrome.tabs.create({url:chrome.runtime.getURL("/page/blocked.html")});
-      window.alert("everyone hates you.");
-    }
     // add condition to only saveJSON is rating is below acceptable
     // saveJSON(dataArray, 'log')
   };
