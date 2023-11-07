@@ -3,6 +3,7 @@
   // var location; (we're not getting these anymore, right?)
   var timeAccessed;
   var pageTitle;
+  var pageURL;
   var rating = 5; // out of 5 stars
   
   function fetchData() {
@@ -42,7 +43,7 @@
     };
   };
   
-  // Return true if URL is  shorted, false if not shortened
+  // Return true if URL is shortened, false if not shortened
   function isShortened() {
     pageURL = window.location.href;
     if ((pageURL.includes('bit.ly')) || (pageURL.includes('tinyurl'))){
@@ -51,6 +52,17 @@
     } else {
       return false;
     };
+  };
+
+  // Return true if URL includes @ symbol (common phishing tactic)
+  function hasAt() {
+    pageURL = window.location.href;
+    if (pageURL.includes('@')){
+      rating -= 1;
+      return true;
+    } else {
+      return false;
+    }
   };
 
   // TODO: Fetch the user's IP address, fetch the user's location
@@ -64,7 +76,7 @@
     if (rating < 0){
       rating = 0;
     }
-    if (!(isSecure()) || (isShortened())){
+    if (!(isSecure()) || (isShortened()) || (hasAt())){
       window.alert("This page is insecure. Proceed at your own risk, further details can be found by clicking on your HawkPhish extension.");
     }
     else {
