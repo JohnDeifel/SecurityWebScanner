@@ -34,11 +34,11 @@
   };
   
   // Return true if URL is https otherwise false
-  function isSecure() {
+  function isHttps() {
     if(window.location.protocol === 'https:'){
       return true;
     } else {
-      rating = rating - 2.5;
+      rating -= 1;
       return false;
     };
   };
@@ -47,7 +47,7 @@
   function isShortened() {
     pageURL = window.location.href;
     if ((pageURL.includes('bit.ly')) || (pageURL.includes('tinyurl'))){
-      rating -= 2.5;
+      rating -= 1;
       return true;
     } else {
       return false;
@@ -76,7 +76,7 @@
     if (rating < 0){
       rating = 0;
     }
-    if (!(isSecure()) || (isShortened()) || (hasAt())){
+    if (!(isHttps()) || (isShortened()) || (hasAt())){
       window.alert("This page is insecure. Proceed at your own risk, further details can be found by clicking on your HawkPhish extension.");
     }
     else {
@@ -86,8 +86,9 @@
       eventTime: timeAccessed,
       domainTitle: pageTitle,
       domainURL: pageURL,
-      domainSecure: isSecure(),
-      domainLinks: getLinks(),
+      // domainSecure: isHttps(),
+      // domainLinks: getLinks(), -- we probably don't need these two anymore
+      domainRating: rating
     }
     
     // console.log(makeJSON(dataArray))
