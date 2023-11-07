@@ -33,60 +33,54 @@
     return linksArray;
   };
   
-  // Return true if URL is https otherwise false
-  function isHttps() {
-    if(window.location.protocol === 'https:'){
-      return true;
-    } else {
+  // Lower rating by 1 if URL is not https
+  function isNotHttps() {
+    if(window.location.protocol !== 'https:'){
       rating -= 1;
-      return false;
-    };
+    }
   };
   
-  // Return true if URL is shortened, false if not shortened
+  // Lower rating by 1 if URL is treated by a link shortener
   function isShortened() {
     pageURL = window.location.href;
     if ((pageURL.includes('bit.ly')) || (pageURL.includes('tinyurl'))){
       rating -= 1;
-      return true;
-    } else {
-      return false;
-    };
+    }
   };
 
-  // Return true if URL includes @ symbol (common phishing tactic)
+  // Lower rating by 1 if URL includes @ symbol (common phishing tactic)
   function hasAt() {
     pageURL = window.location.href;
     if (pageURL.includes('@')){
       rating -= 1;
-      return true;
-    } else {
-      return false;
     }
   };
 
   // TODO: Fetch the user's IP address, fetch the user's location
-  // Do we need to, at this point? I'd say no
+  // Lucas: Do we need to, at this point? I'd say no
   
   // Refresh the data when a new link is accessed
   window.onload = function() {
-    safe = true;
+    safe = true; // so what exactly is this?
     window.onload = null;
     fetchData();
+    isNotHttps();
+    isShortened();
+    hasAt();
     if (rating < 0){
       rating = 0;
     }
-    if (!(isHttps()) || (isShortened()) || (hasAt())){
-      window.alert("This page is insecure. Proceed at your own risk, further details can be found by clicking on your HawkPhish extension.");
+    if (rating <= 4){
+      window.alert("This page could be unsafe; its HawkPhish Security Rating is " + rating + " stars. Proceed at your own risk, further details can be found by clicking on your HawkPhish extension.");
     }
     else {
-      window.alert("Page is secure.");
+      window.alert("This page is secure; its HawkPhish Security Rating is " + rating + " stars.");
     }
     const dataArray = {
       eventTime: timeAccessed,
       domainTitle: pageTitle,
       domainURL: pageURL,
-      // domainSecure: isHttps(),
+      // domainSecure: isNotHttps(),
       // domainLinks: getLinks(), -- we probably don't need these two anymore
       domainRating: rating
     }
