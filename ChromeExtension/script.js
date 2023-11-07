@@ -1,56 +1,34 @@
 {
-  var domain;
+  // var domain;
+  // var location; (we're not getting these anymore, right?)
   var timeAccessed;
-  var location;
   var pageTitle;
   var rating = 5; // out of 5 stars
   
   function fetchData() {
-    //domain = pass
-    
     let event = new Date();
     timeAccessed = event.toString();
-  
-    //location = pass
-  
     pageTitle = document.title;
     pageURL = window.location.href;
-  
-    //rating = pass
   };
   
-  // https://gist.github.com/amundo/3951b04c1e0725445774
-  function saveJSON(data){
+  function makeJSON(data){
     return JSON.stringify(data, null, 2);
-    // BELOW IS COMMENTED OUT BECAUSE ALL WE NEED IS AN OBJECT (FOR NOW)
-  
-    /*var blob = new Blob([stringified], {type: "application/json"});
-    var url = URL.createObjectURL(blob);
-    
-    
-    var a = document.createElement('a');
-    a.download = saveAs + '.json';
-    a.href = url;
-    a.id = saveAs;
-    document.body.appendChild(a);
-    a.click();
-    document.querySelector('#' + a.id).remove();*/
   };
   
-  // Return the html of the page
+  // Return the html of the page (EDIT: we might not use this anymore)
   function getHTML() {
     pageHTML = document.documentElement.outerHTML;
     return pageHTML;
   };
   
-  // Get all links on the page
+  // Get all links on the page (EDIT: we might not use this anymore)
   function getLinks() {
     var links = document.getElementsByTagName('a');
     var linksArray = [];
     for (var i = 0; i < links.length; i++) {
       linksArray.push(links[i].href);
     }
-    
     return linksArray;
   };
   
@@ -74,9 +52,9 @@
       return false;
     };
   };
-  // TODO: Fetch the user's IP address
-  
-  // TODO: Fetch the user's location
+
+  // TODO: Fetch the user's IP address, fetch the user's location
+  // Do we need to, at this point? I'd say no
   
   // Refresh the data when a new link is accessed
   window.onload = function() {
@@ -100,12 +78,10 @@
       domainLinks: getLinks(),
     }
     
-    // console.log(saveJSON(dataArray))
-    // add condition to only saveJSON is rating is below acceptable
-    // saveJSON(dataArray, 'log')
+    // console.log(makeJSON(dataArray))
+    // add condition to only makeJSON if rating is below acceptable
+    // makeJSON(dataArray)
   };
   
-  
-  
-  }
+}
   
