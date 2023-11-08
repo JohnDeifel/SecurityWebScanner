@@ -1,111 +1,94 @@
 {
-  var domain;
+  // var domain;
+  // var location; (we're not getting these anymore, right?)
   var timeAccessed;
-  var location;
   var pageTitle;
+  var pageURL;
   var rating = 5; // out of 5 stars
   
   function fetchData() {
-    //domain = pass
-    
     let event = new Date();
     timeAccessed = event.toString();
-  
-    //location = pass
-  
     pageTitle = document.title;
     pageURL = window.location.href;
-  
-    //rating = pass
   };
   
-  // https://gist.github.com/amundo/3951b04c1e0725445774
-  function saveJSON(data){
+  function makeJSON(data){
     return JSON.stringify(data, null, 2);
-    // BELOW IS COMMENTED OUT BECAUSE ALL WE NEED IS AN OBJECT (FOR NOW)
-  
-    /*var blob = new Blob([stringified], {type: "application/json"});
-    var url = URL.createObjectURL(blob);
-    
-    
-    var a = document.createElement('a');
-    a.download = saveAs + '.json';
-    a.href = url;
-    a.id = saveAs;
-    document.body.appendChild(a);
-    a.click();
-    document.querySelector('#' + a.id).remove();*/
   };
   
-  // Return the html of the page
+  // Return the html of the page (EDIT: we might not use this anymore)
   function getHTML() {
     pageHTML = document.documentElement.outerHTML;
     return pageHTML;
   };
   
-  // Get all links on the page
+  // Get all links on the page (EDIT: we might not use this anymore)
   function getLinks() {
     var links = document.getElementsByTagName('a');
     var linksArray = [];
     for (var i = 0; i < links.length; i++) {
       linksArray.push(links[i].href);
     }
-    
     return linksArray;
   };
   
-  // Return true if URL is https otherwise false
-  function isSecure() {
-    if(window.location.protocol === 'https:'){
-      return true;
-    } else {
-      rating = rating - 2.5;
-      return false;
-    };
+  // Lower rating by 1 if URL is not https
+  function isNotHttps() {
+    if(window.location.protocol !== 'https:'){
+      rating -= 1;
+    }
   };
   
-  // Return true if URL is  shorted, false if not shortened
+  // Lower rating by 1 if URL is treated by a link shortener
   function isShortened() {
     pageURL = window.location.href;
     if ((pageURL.includes('bit.ly')) || (pageURL.includes('tinyurl'))){
-      rating -= 2.5;
-      return true;
-    } else {
-      return false;
-    };
+      rating -= 1;
+    }
   };
-  // TODO: Fetch the user's IP address
-  
-  // TODO: Fetch the user's location
+
+  // Lower rating by 1 if URL includes @ symbol (common phishing tactic)
+  function hasAt() {
+    pageURL = window.location.href;
+    if (pageURL.includes('@')){
+      rating -= 1;
+    }
+  };
+
+  // TODO: Fetch the user's IP address, fetch the user's location
+  // Lucas: Do we need to, at this point? I'd say no
   
   // Refresh the data when a new link is accessed
   window.onload = function() {
-    safe = true;
+    safe = true; // so what exactly is this?
     window.onload = null;
     fetchData();
+    isNotHttps();
+    isShortened();
+    hasAt();
     if (rating < 0){
       rating = 0;
     }
-    if (!(isSecure()) || (isShortened())){
-      window.alert("This page is insecure. Proceed at your own risk, further details can be found by clicking on your HawkPhish extension.");
+    if (rating <= 4){
+      window.alert("This page could be unsafe; its HawkPhish Security Rating is " + rating + " stars. Proceed at your own risk, further details can be found by clicking on your HawkPhish extension.");
     }
     else {
-      window.alert("Page is secure.");
+      window.alert("This page is secure; its HawkPhish Security Rating is " + rating + " stars.");
     }
     const dataArray = {
       eventTime: timeAccessed,
       domainTitle: pageTitle,
       domainURL: pageURL,
-      domainSecure: isSecure(),
-      domainLinks: getLinks(),
+      // domainSecure: isNotHttps(),
+      // domainLinks: getLinks(), -- we probably don't need these two anymore
+      domainRating: rating
     }
     
-    // console.log(saveJSON(dataArray))
-    // add condition to only saveJSON is rating is below acceptable
-    // saveJSON(dataArray, 'log')
+    // console.log(makeJSON(dataArray))
+    // add condition to only makeJSON if rating is below acceptable
+    // makeJSON(dataArray)
   };
   
-  
-  
-  }
+}
   
