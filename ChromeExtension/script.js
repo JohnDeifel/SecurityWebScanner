@@ -12,6 +12,10 @@
     pageTitle = document.title;
     pageURL = window.location.href;
   };
+
+  function json(url) {
+    return fetch(url).then(res => res.json());
+  }
   
   function makeJSON(data){
     return JSON.stringify(data, null, 2);
@@ -61,6 +65,13 @@
   
   // Refresh the data when a new link is accessed
   window.onload = function() {
+    let apiKey = 'ccaa3a53c5c11195be3f0f03e7ab1d13180c05bc1d50086ee8fd50b8';
+    json(`https://api.ipdata.co?api-key=${apiKey}`).then(data => {
+    console.log(data.ip);
+    console.log(data.city);
+    console.log(data.country_code);
+    });
+
     safe = true; // so what exactly is this?
     window.onload = null;
     fetchData();
