@@ -19,16 +19,9 @@ Users have the right to know what data will be recorded from them. Whenever a ma
 
 ## Star Rating:
 There will be a variety of certain points of interest that will weigh that website's star rating such as:
-- Domain Age
-- Google Index
 - Website Hosting Location
-- Known malicious link
-- Valid Certificate
-- Web Content
-    * HTML
+- Valid Certificate (?)
 - URL features
     * Treated by a link shortener
-    * Invalid Link
     * @ symbol found in URL
-    * Redirecting using "//"
     * Adding Prefix or Suffix Separated by (-) to the Domain
