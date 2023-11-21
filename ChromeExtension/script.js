@@ -1,9 +1,11 @@
 {
-  // var domain;
-  // var location; (we're not getting these anymore, right?)
+  // Data variables (mostly for Backend)
   var timeAccessed;
   var pageTitle;
   var pageURL;
+  var userIP;
+  var userLocation;
+  var userCountry;
   var rating = 5; // out of 5 stars
   
   function fetchData() {
@@ -12,28 +14,48 @@
     pageTitle = document.title;
     pageURL = window.location.href;
   };
+
+  // Helper function for fetchIPData()
+  // Author: Na'im
+  /* function json(url) {
+    return fetch(url).then(res => res.json());
+  }; */
+
+  // Co-authors: Na'im, Lucas
+  /* function fetchIPData() {
+    let apiKey = 'ccaa3a53c5c11195be3f0f03e7ab1d13180c05bc1d50086ee8fd50b8';
+    json(`https://api.ipdata.co?api-key=${apiKey}`).then(data => {
+    userIP = data.ip; // CURRENTLY NOT WORKING
+    userLocation = data.city; // CURRENTLY NOT WORKING
+    userCountry = data.country_code; // CURRENTLY NOT WORKING
+    });
+  }; */
   
-  function makeJSON(data){
+  function makeJSON(data) {
     return JSON.stringify(data, null, 2);
   };
   
-  // Return the html of the page (EDIT: we might not use this anymore)
-  function getHTML() {
+  // Return the html of the page (unused)
+  /* function getHTML() {
     pageHTML = document.documentElement.outerHTML;
     return pageHTML;
-  };
+  }; */
   
-  // Get all links on the page (EDIT: we might not use this anymore)
-  function getLinks() {
+  // Get all links on the page (unused)
+  /* function getLinks() {
     var links = document.getElementsByTagName('a');
     var linksArray = [];
     for (var i = 0; i < links.length; i++) {
       linksArray.push(links[i].href);
     }
     return linksArray;
-  };
+  }; */
   
+
+  // SECURITY CHECKS
+
   // Lower rating by 1 if URL is not https
+  // Author: Na'im (and Lucas for rating)
   function isNotHttps() {
     if(window.location.protocol !== 'https:'){
       rating -= 1;
@@ -41,6 +63,7 @@
   };
   
   // Lower rating by 1 if URL is treated by a link shortener
+  // Author: Kate (?) (and Lucas for rating)
   function isShortened() {
     pageURL = window.location.href;
     if ((pageURL.includes('bit.ly')) || (pageURL.includes('tinyurl'))){
@@ -48,7 +71,8 @@
     }
   };
 
-  // Lower rating by 1 if URL includes @ symbol (common phishing tactic)
+  // Lower rating by 1 if URL contains @ symbol (common phishing tactic)
+  // Author: Lucas
   function hasAt() {
     pageURL = window.location.href;
     if (pageURL.includes('@')){
@@ -56,21 +80,40 @@
     }
   };
 
-  // TODO: Fetch the user's IP address, fetch the user's location
-  // Lucas: Do we need to, at this point? I'd say no
+  // Lower rating by 1 if URL extension is deemed unsafe
+  // Author: Kate (and Lucas for rating)
+  function unsafeExtension() {
+    pageURL = window.location.href;
+    // based off an article on the most unsafe domain extensions (article link?)
+    if ((pageURL.includes('.cf')) || (pageURL.includes('.work'))|| (pageURL.includes('.ml')) || (pageURL.includes('.ga'))|| (pageURL.includes('.gq')) || (pageURL.includes('.fit')) || (pageURL.includes('.tk'))){
+      rating -= 1;
+    }
+  }
+
+  // Lower rating by 0.25 if URL contains - symbol (not always unsafe, hence the lower value)
+  // Author: Lucas
+  function hasDash() {
+    pageURL = window.location.href;
+    if (pageURL.includes('-')){
+      rating -= 0.25;
+    }
+  }
   
   // Refresh the data when a new link is accessed
   window.onload = function() {
-    safe = true; // so what exactly is this?
+    safe = true;
     window.onload = null;
     fetchData();
+    // fetchIPData();
     isNotHttps();
     isShortened();
     hasAt();
+    unsafeExtension();
+    hasDash();
     if (rating < 0){
       rating = 0;
     }
-    if (rating <= 4){
+    if (rating <= 3.5){
       window.alert("This page could be unsafe; its HawkPhish Security Rating is " + rating + " stars. Proceed at your own risk, further details can be found by clicking on your HawkPhish extension.");
     }
     else {
@@ -80,14 +123,13 @@
       eventTime: timeAccessed,
       domainTitle: pageTitle,
       domainURL: pageURL,
-      // domainSecure: isNotHttps(),
-      // domainLinks: getLinks(), -- we probably don't need these two anymore
+      // IPAddress: userIP, // CURRENTLY NOT WORKING
+      // location: userLocation, // CURRENTLY NOT WORKING
+      // country: userCountry, // CURRENTLY NOT WORKING
       domainRating: rating
-    }
+    };
     
-    // console.log(makeJSON(dataArray))
-    // add condition to only makeJSON if rating is below acceptable
-    // makeJSON(dataArray)
+    // console.log(makeJSON(dataArray)); // (for testing)
   };
   
 }
