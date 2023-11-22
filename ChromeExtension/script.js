@@ -17,19 +17,34 @@
 
   // Helper function for fetchIPData()
   // Author: Na'im
-  /* function json(url) {
+   function json(url) {
     return fetch(url).then(res => res.json());
-  }; */
+  }; 
 
   // Co-authors: Na'im, Lucas
-  /* function fetchIPData() {
+  function fetchIPData() {
+    
+    var request = new XMLHttpRequest();
+
+    request.open('GET', `https://api.ipdata.co/?api-key=${apikey}`);
+
+    request.setRequestHeader('Accept', 'application/json');
+
+    request.onreadystatechange = function () {
+      if (this.readyState === 4) {
+        console.log(this.responseText);
+      }
+    };
+
+    request.send();
+    
     let apiKey = 'ccaa3a53c5c11195be3f0f03e7ab1d13180c05bc1d50086ee8fd50b8';
-    json(`https://api.ipdata.co?api-key=${apiKey}`).then(data => {
-    userIP = data.ip; // CURRENTLY NOT WORKING
-    userLocation = data.city; // CURRENTLY NOT WORKING
-    userCountry = data.country_code; // CURRENTLY NOT WORKING
+    json(`https://api.ipdata.co?api-key=${apiKey}`).then(request => {
+    userIP = request.ip; // CURRENTLY NOT WORKING
+    userLocation = request.city; // CURRENTLY NOT WORKING
+    userCountry = request.country_code; // CURRENTLY NOT WORKING
     });
-  }; */
+  }; 
   
   function makeJSON(data) {
     return JSON.stringify(data, null, 2);
@@ -104,7 +119,7 @@
     safe = true;
     window.onload = null;
     fetchData();
-    // fetchIPData();
+    fetchIPData();
     isNotHttps();
     isShortened();
     hasAt();
@@ -123,13 +138,13 @@
       eventTime: timeAccessed,
       domainTitle: pageTitle,
       domainURL: pageURL,
-      // IPAddress: userIP, // CURRENTLY NOT WORKING
-      // location: userLocation, // CURRENTLY NOT WORKING
-      // country: userCountry, // CURRENTLY NOT WORKING
+      IPAddress: userIP, // CURRENTLY NOT WORKING
+      location: userLocation, // CURRENTLY NOT WORKING
+      country: userCountry, // CURRENTLY NOT WORKING
       domainRating: rating
     };
     
-    // console.log(makeJSON(dataArray)); // (for testing)
+    console.log(makeJSON(dataArray)); // (for testing)
   };
   
 }
