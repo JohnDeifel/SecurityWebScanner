@@ -1,21 +1,13 @@
 body{
-    background-color: #4a4949;
+    background-color: rgba(230, 230, 230, 0.749);
     font-family: Helvetica, sans-serif;
-    color: white;
+    color: maroon;
     font-size: 1em;
     line-height: 1.5;
 }
 
-#fineprint{
-    font-size: 0.75em;
-}
-
-#goback{
-    box-sizing: border-box;
-    background-color: #0ccf02;
-}
-
-#proceed{
-    box-sizing: border-box;
-    background-color: #c2221f;
-}
+.des {
+    background-color:maroon;
+    border: solid, gray;
+    border-radius: 15% / 50%;
+}   
