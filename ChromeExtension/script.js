@@ -39,11 +39,11 @@
 
     request.send();
 
-    userIP = request.ip; // CURRENTLY NOT WORKING
+    userIP = request.ip.stringify(); // CURRENTLY NOT WORKING
     console.log(userIP);
-    userLocation = request.city; // CURRENTLY NOT WORKING
+    userLocation = request.city.stringify(); // CURRENTLY NOT WORKING
     console.log(userLocation);
-    userCountry = request.country_code; // CURRENTLY NOT WORKING
+    userCountry = request.country_code.stringify(); // CURRENTLY NOT WORKING
     console.log(userCountry);
     
   }; 
