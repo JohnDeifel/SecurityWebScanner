@@ -23,28 +23,19 @@
 
   // Co-authors: Na'im, Lucas
   function fetchIPData() {
-    
-    var request = new XMLHttpRequest();
-    
-    let apiKey = 'ccaa3a53c5c11195be3f0f03e7ab1d13180c05bc1d50086ee8fd50b8';
-    request.open('GET', `https://api.ipdata.co/?api-key=${apiKey}`);
-
-    request.setRequestHeader('Accept', 'application/json');
-
-    request.onreadystatechange = function () {
-      if (this.readyState === 4) {
-        console.log(this.responseText);
+    const settings = {
+      async: true,
+      crossDomain: true,
+      url: 'https://api.ipdata.co/v1/ip/',
+      method: 'GET',
+      headers: {
+        accept: 'application/json'
       }
     };
-
-    request.send();
-
-    userIP = request.ip.stringify(); // CURRENTLY NOT WORKING
-    console.log(userIP);
-    userLocation = request.city.stringify(); // CURRENTLY NOT WORKING
-    console.log(userLocation);
-    userCountry = request.country_code.stringify(); // CURRENTLY NOT WORKING
-    console.log(userCountry);
+    
+    $.ajax(settings).done(function (response) {
+      console.log(response.ip);
+    });
     
   }; 
   
