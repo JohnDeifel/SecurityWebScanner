@@ -25,7 +25,8 @@
   function fetchIPData() {
     
     var request = new XMLHttpRequest();
-
+    
+    let apiKey = 'ccaa3a53c5c11195be3f0f03e7ab1d13180c05bc1d50086ee8fd50b8';
     request.open('GET', `https://api.ipdata.co/?api-key=${apikey}`);
 
     request.setRequestHeader('Accept', 'application/json');
@@ -37,13 +38,11 @@
     };
 
     request.send();
-    
-    let apiKey = 'ccaa3a53c5c11195be3f0f03e7ab1d13180c05bc1d50086ee8fd50b8';
-    json(`https://api.ipdata.co?api-key=${apiKey}`).then(request => {
+
     userIP = request.ip; // CURRENTLY NOT WORKING
     userLocation = request.city; // CURRENTLY NOT WORKING
     userCountry = request.country_code; // CURRENTLY NOT WORKING
-    });
+    
   }; 
   
   function makeJSON(data) {
