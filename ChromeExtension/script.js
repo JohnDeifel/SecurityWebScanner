@@ -40,8 +40,11 @@
     request.send();
 
     userIP = request.ip; // CURRENTLY NOT WORKING
+    console.log(userIP);
     userLocation = request.city; // CURRENTLY NOT WORKING
+    console.log(userLocation);
     userCountry = request.country_code; // CURRENTLY NOT WORKING
+    console.log(userCountry);
     
   }; 
   
