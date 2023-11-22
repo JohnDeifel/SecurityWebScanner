@@ -7,6 +7,7 @@ body{
 }
 
 .des {
+    color: rgba(230, 230, 230, 0.749);
     background-color:maroon;
     border: solid, gray;
     border-radius: 15% / 50%;
