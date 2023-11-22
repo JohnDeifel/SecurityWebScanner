@@ -111,7 +111,6 @@
     isShortened();
     hasAt();
     unsafeExtension();
-    hasDash();
     if (rating < 0){
       rating = 0;
     }
