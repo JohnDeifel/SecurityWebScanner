@@ -12,7 +12,6 @@
   var shortened = "";
   var at = "";
   var extension = "";
-  var dash = "";
 
   var rating = 5; // out of 5 stars
   
@@ -101,16 +100,6 @@
       extension = "- Unsafe URL extension: this page is being hosted in a location associated with unsafe websites.\n";
     }
   }
-
-  // Lower rating by 0.25 if URL contains - symbol (not always unsafe, hence the lower value)
-  // Author: Lucas
-  function hasDash() {
-    pageURL = window.location.href;
-    if (pageURL.includes('-')){
-      rating -= 0.25;
-      dash = "- This URL contains a - symbol. That could indicate a malicious link.\n";
-    }
-  }
   
   // Refresh the data when a new link is accessed
   window.onload = function() {
@@ -128,7 +117,7 @@
     }
     if (rating <= 4){
       // Show user the rating, security report, and prompt them to go back
-      if(window.confirm("This page could be unsafe; its HawkPhish Security Rating is " + rating + " stars.\n\nThis page's vulnerabilities are: (SCROLL DOWN IF NEEDED)\n" + https + shortened + at + extension + dash + "\nWe recommend you press Cancel to return to the previous page now. If you wish to proceed at your own risk, press OK.") == false){
+      if(window.confirm("This page could be unsafe; its HawkPhish Security Rating is " + rating + " stars.\n\nThis page's vulnerabilities are: (SCROLL DOWN IF NEEDED)\n" + https + shortened + at + extension + "\nWe recommend you press Cancel to return to the previous page now. If you wish to proceed at your own risk, press OK.") == false){
         history.back();
       }
     }
