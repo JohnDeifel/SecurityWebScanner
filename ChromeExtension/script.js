@@ -32,11 +32,11 @@
 
   // SECURITY CHECKS
 
-  // Lower rating by 1 if URL is not https
+  // Lower rating by 1.5 if URL is not https
   // Author: Na'im (and Lucas for rating/report)
   function isNotHttps() {
     if(window.location.protocol !== 'https:'){
-      rating -= 1;
+      rating -= 1.5;
       httpsUnsafe = true;
       httpsString = "- This URL does not follow HTTPS protocol. HTTPS guarantees a secure connection.\n";
     }
@@ -53,23 +53,23 @@
     }
   };
 
-  // Lower rating by 1 if URL contains @ symbol (common phishing tactic)
+  // Lower rating by 2.5 if URL contains @ symbol (common phishing tactic)
   // Author: Lucas
   function hasAt() {
     pageURL = window.location.href;
     if (pageURL.includes('@')){
-      rating -= 1;
+      rating -= 2.5;
       atUnsafe = true;
       atString = "- This URL contains an @ symbol. It could be trying to redirect you somewhere else.\n";
     }
   };
 
-  // Lower rating by 1 if TLD (domain extension) is deemed unsafe
+  // Lower rating by 2 if TLD (domain extension) is deemed unsafe
   // Co-authors: Kate and Lucas
   function unsafeExtension() {
     pageURL = window.location.href;
     if ((pageURL.includes('.cf')) || (pageURL.includes('.work'))|| (pageURL.includes('.ml')) || (pageURL.includes('.ga'))|| (pageURL.includes('.gq')) || (pageURL.includes('.fit')) || (pageURL.includes('.tk')) || (pageURL.includes('.ru')) || (pageURL.includes('.to')) || (pageURL.includes('.live')) || (pageURL.includes('.cn')) || (pageURL.includes('.top')) || (pageURL.includes('.xyz')) || (pageURL.includes('.pw')) || (pageURL.includes('.ws')) || (pageURL.includes('.cc')) || (pageURL.includes('.buzz'))){
-      rating -= 1;
+      rating -= 2;
       extensionUnsafe = true;
       extensionString = "- Unsafe top-level domain: this page is being hosted in a domain commonly associated with unsafe websites.\n";
     }
@@ -86,7 +86,7 @@
     if (rating < 0){
       rating = 0;
     }
-    if (rating <= 4){
+    if (rating <= 3.5){
       // Get the data for backend
       fetchData();
       const dataArray = {
@@ -101,7 +101,7 @@
       };
       console.log(makeJSON(dataArray));
       // Show user the rating, security report, and prompt them to go back
-      if(window.confirm("This page could be unsafe; its HawkPhish Security Rating is " + rating + " stars.\n\nThis page's vulnerabilities are: (SCROLL DOWN IF NEEDED)\n" + httpsString + shortString + atString + extensionString + "\nWe recommend you press Cancel to return to the previous page now. If you wish to proceed at your own risk, press OK.") == false){
+      if(window.confirm("This page could be unsafe; its HawkPhish Security Rating is " + rating + " stars.\n\nThis page's vulnerabilities are: (SCROLL DOWN IF NEEDED)\n" + atString + extensionString + httpsString + shortString + "\nWe recommend you press Cancel to return to the previous page now. If you wish to proceed at your own risk, press OK.") == false){
         history.back();
       }
     }
