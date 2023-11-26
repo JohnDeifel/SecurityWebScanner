@@ -64,15 +64,14 @@
     }
   };
 
-  // Lower rating by 1 if URL extension is deemed unsafe
-  // Author: Kate (and Lucas for rating/report)
+  // Lower rating by 1 if TLD (domain extension) is deemed unsafe
+  // Co-authors: Kate and Lucas
   function unsafeExtension() {
     pageURL = window.location.href;
-    // based off an article on the most unsafe domain extensions (article link?)
-    if ((pageURL.includes('.cf')) || (pageURL.includes('.work'))|| (pageURL.includes('.ml')) || (pageURL.includes('.ga'))|| (pageURL.includes('.gq')) || (pageURL.includes('.fit')) || (pageURL.includes('.tk'))){
+    if ((pageURL.includes('.cf')) || (pageURL.includes('.work'))|| (pageURL.includes('.ml')) || (pageURL.includes('.ga'))|| (pageURL.includes('.gq')) || (pageURL.includes('.fit')) || (pageURL.includes('.tk')) || (pageURL.includes('.ru')) || (pageURL.includes('.to')) || (pageURL.includes('.live')) || (pageURL.includes('.cn')) || (pageURL.includes('.top')) || (pageURL.includes('.xyz')) || (pageURL.includes('.pw')) || (pageURL.includes('.ws')) || (pageURL.includes('.cc')) || (pageURL.includes('.buzz'))){
       rating -= 1;
       extensionUnsafe = true;
-      extensionString = "- Unsafe URL extension: this page is being hosted in a location associated with unsafe websites.\n";
+      extensionString = "- Unsafe top-level domain: this page is being hosted in a domain commonly associated with unsafe websites.\n";
     }
   }
   
