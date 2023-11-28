@@ -1,11 +1,8 @@
 {
-  // Data variables (mostly for Backend)shortStringat
+  // Data variables
   var timeAccessed;
   var pageTitle;
   var pageURL;
-  var userIP;
-  var userLocation;
-  var userCountry;
 
   // Security variables (for report)
   var httpsString = "";
@@ -26,6 +23,7 @@
     pageURL = window.location.href;
   };
   
+  // For end-to-end
   function makeJSON(data) {
     return JSON.stringify(data, null, 2);
   };
@@ -75,14 +73,17 @@
     }
   }
   
-  // Refresh the data when a new link is accessed
+  // Main function, on page load
   window.onload = function() {
     safe = true;
     window.onload = null;
+
+    // Run security checks
     isNotHttps();
     isShortened();
     hasAt();
     unsafeExtension();
+    
     if (rating < 0){
       rating = 0;
     }
