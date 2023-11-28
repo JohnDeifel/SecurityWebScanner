@@ -1,0 +1,57 @@
+[
+    {
+    "eventTime": "Mon Nov 27 2023 20:03:02 GMT-0600 (Central Standard Time)",
+    "domainTitle": "Dot TK - Find a new FREE domain",
+    "domainURL": "http://www.dot.tk/en/index.html?lang=en",
+    "domainRating": 1.5,
+    "reasonNoHttps": true,
+    "reasonShortened": false,
+    "reasonAtSymbol": false,
+    "reasonBadExtension": true
+  },  
+
+  {
+    "eventTime": "Mon Nov 27 2023 20:15:11 GMT-0600 (Central Standard Time)",
+    "domainTitle": "dot.to - This website is for sale! - dot Resources and Information.",
+    "domainURL": "https://dot.to/",
+    "domainRating": 3,
+    "reasonNoHttps": false,
+    "reasonShortened": false,
+    "reasonAtSymbol": false,
+    "reasonBadExtension": true
+  },
+  
+  {
+    "eventTime": "Mon Nov 27 2023 20:16:34 GMT-0600 (Central Standard Time)",
+    "domainTitle": "naimqm.com - naimqm Resources and Information.",
+    "domainURL": "http://www.naimqm.com/",
+    "domainRating": 3.5,
+    "reasonNoHttps": true,
+    "reasonShortened": false,
+    "reasonAtSymbol": false,
+    "reasonBadExtension": false
+  },
+  
+  {
+    "eventTime": "Mon Nov 27 2023 20:22:38 GMT-0600 (Central Standard Time)",
+    "domainTitle": "Яндекс: задан пустой поисковый запрос",
+    "domainURL": "https://yandex.ru/search/?lr=10131&redircnt=1701138157.1",
+    "domainRating": 3,
+    "reasonNoHttps": false,
+    "reasonShortened": false,
+    "reasonAtSymbol": false,
+    "reasonBadExtension": true
+  },
+  
+  {
+    "eventTime": "Mon Nov 27 2023 20:26:37 GMT-0600 (Central Standard Time)",
+    "domainTitle": "新浪网",
+    "domainURL": "https://www.sina.com.cn/",
+    "domainRating": 3,
+    "reasonNoHttps": false,
+    "reasonShortened": false,
+    "reasonAtSymbol": false,
+    "reasonBadExtension": true
+  }
+
+]
