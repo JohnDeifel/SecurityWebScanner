@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-    "name": "SecurityWebScanner",
-    "description": "Scans Website HTML",
+    "name": "HawkPhish",
+    "description": "Web Scanner and Security Summarizer",
     "version": "1.0",
     "permissions": ["activeTab"],
 
