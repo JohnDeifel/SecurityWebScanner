@@ -1,27 +1,56 @@
 [
     {
-        "WebsiteName": "AnotherExample.com",
-        "IPAddress": "11-22-33-44-55-66",
-        "Domain": "AnotherExample",
-        "TimeAccessed": "2:15pm, 9-15-23",
-        "LocationAccessed": "Los Angeles, USA",
-        "ReasonForBlock": "Phishing Attempt"
+      "eventTime": "Mon Nov 27 2023 20:03:02 GMT-0600 (Central Standard Time)",
+      "domainTitle": "Dot TK - Find a new FREE domain",
+      "domainURL": "http://www.dot.tk/en/index.html?lang=en",
+      "domainRating": 1.5,
+      "reasonNoHttps": true,
+      "reasonShortened": false,
+      "reasonAtSymbol": false,
+      "reasonBadExtension": true
     },
+    
     {
-        "WebsiteName": "SecureBanking.net",
-        "IPAddress": "9A-8B-7C-6D-5E-4F",
-        "Domain": "SecureBanking",
-        "TimeAccessed": "8:00am, 9-17-23",
-        "LocationAccessed": "London, UK",
-        "ReasonForBlock": "Account Suspicion"
+      "eventTime": "Mon Nov 27 2023 20:15:11 GMT-0600 (Central Standard Time)",
+      "domainTitle": "dot.to - This website is for sale! - dot Resources and Information.",
+      "domainURL": "https://dot.to/",
+      "domainRating": 3,
+      "reasonNoHttps": false,
+      "reasonShortened": false,
+      "reasonAtSymbol": false,
+      "reasonBadExtension": true
     },
+    
     {
-        "WebsiteName": "ExampleSite.com",
-        "IPAddress": "A1-2B-3C-4D-5E-6F",
-        "Domain": "ExampleSite",
-        "TimeAccessed": "3:30pm, 9-11-23",
-        "LocationAccessed": "New York, USA",
-        "ReasonForBlock": "Malware Detected"
+      "eventTime": "Mon Nov 27 2023 20:16:34 GMT-0600 (Central Standard Time)",
+      "domainTitle": "naimqm.com - naimqm Resources and Information.",
+      "domainURL": "http://www.naimqm.com/",
+      "domainRating": 3.5,
+      "reasonNoHttps": true,
+      "reasonShortened": false,
+      "reasonAtSymbol": false,
+      "reasonBadExtension": false
+    },
+    
+    {
+      "eventTime": "Mon Nov 27 2023 20:22:38 GMT-0600 (Central Standard Time)",
+      "domainTitle": "Яндекс: задан пустой поисковый запрос",
+      "domainURL": "https://yandex.ru/search/?lr=10131&redircnt=1701138157.1",
+      "domainRating": 3,
+      "reasonNoHttps": false,
+      "reasonShortened": false,
+      "reasonAtSymbol": false,
+      "reasonBadExtension": true
+    },
+    
+    {
+      "eventTime": "Mon Nov 27 2023 20:26:37 GMT-0600 (Central Standard Time)",
+      "domainTitle": "新浪网",
+      "domainURL": "https://www.sina.com.cn/",
+      "domainRating": 3,
+      "reasonNoHttps": false,
+      "reasonShortened": false,
+      "reasonAtSymbol": false,
+      "reasonBadExtension": true
     }
-
 ]
