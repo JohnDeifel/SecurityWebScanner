@@ -15,6 +15,7 @@
   var extensionUnsafe = false;
 
   var rating = 5; // out of 5 stars
+  var warningMessage = "";
   
   function fetchData() {
     let event = new Date();
@@ -40,15 +41,25 @@
     }
   };
   
-  // Lower rating by 1 if URL is treated by a link shortener
-  // Author: Kate (?) (and Lucas for rating/report)
+  /* Lower rating by 1 if URL is treated by a link shortener
+   Author: Kate (?) (and Lucas for rating/report)
+   Optimization by Rodney*/
   function isShortened() {
     pageURL = window.location.href;
-    if ((pageURL.includes('bit.ly')) || (pageURL.includes('tinyurl'))){
+    const shortFlags = ['bit.ly', 'tinyurl']; //I sense an "or" chain in the future, let's prevent that
+    for (i in shortFlags){
+      if(pageURL.includes(shortFlags[i])){
+        rating -= 1;
+        shortUnsafe = true;
+        shortString = "- This URL was treated by a link shortener, possibly to hide the true URL.\n";
+        break;
+      }
+    }
+    /*if ((pageURL.includes('bit.ly')) || (pageURL.includes('tinyurl'))){
       rating -= 1;
       shortUnsafe = true;
       shortString = "- This URL was treated by a link shortener, possibly to hide the true URL.\n";
-    }
+    }*/
   };
 
   // Lower rating by 2.5 if URL contains @ symbol (common phishing tactic)
@@ -62,14 +73,42 @@
     }
   };
 
-  // Lower rating by 2 if TLD (domain extension) is deemed unsafe
-  // Co-authors: Kate and Lucas
+  /*Lower rating by 2 if TLD (domain extension) is deemed unsafe
+  Co-authors: Kate and Lucas
+  Optimization by Rodney*/
   function unsafeExtension() {
     pageURL = window.location.href;
-    if ((pageURL.includes('.cf')) || (pageURL.includes('.work'))|| (pageURL.includes('.ml')) || (pageURL.includes('.ga'))|| (pageURL.includes('.gq')) || (pageURL.includes('.fit')) || (pageURL.includes('.tk')) || (pageURL.includes('.ru')) || (pageURL.includes('.to')) || (pageURL.includes('.live')) || (pageURL.includes('.cn')) || (pageURL.includes('.top')) || (pageURL.includes('.xyz')) || (pageURL.includes('.pw')) || (pageURL.includes('.ws')) || (pageURL.includes('.cc')) || (pageURL.includes('.buzz'))){
+    const exFlags = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz']; //no more ugly "or" chain
+    for (i in exFlags){
+      if (pageURL.includes(exFlags[i])){
+        rating -=2;
+        extensionUnsafe = true;
+        extensionString = "- Unsafe top-level domain: this page is being hosted in a domain commonly associated with unsafe websites.\n";
+        break;
+      }
+    }
+    /*if ((pageURL.includes('.cf')) || (pageURL.includes('.work'))|| (pageURL.includes('.ml')) || (pageURL.includes('.ga'))|| (pageURL.includes('.gq')) || (pageURL.includes('.fit')) || (pageURL.includes('.tk')) || (pageURL.includes('.ru')) || (pageURL.includes('.to')) || (pageURL.includes('.live')) || (pageURL.includes('.cn')) || (pageURL.includes('.top')) || (pageURL.includes('.xyz')) || (pageURL.includes('.pw')) || (pageURL.includes('.ws')) || (pageURL.includes('.cc')) || (pageURL.includes('.buzz'))){
       rating -= 2;
       extensionUnsafe = true;
       extensionString = "- Unsafe top-level domain: this page is being hosted in a domain commonly associated with unsafe websites.\n";
+    }*/
+  }
+  /*
+  Dermine a message to display depending on the rating, to tell the user if you should bail immeaditely or proceed at their own risk
+  Author: Rodney
+  */
+  function severityMessage(score){
+    if(score <= 3 && score >= 2){
+      warningMessage = "This page has failed some of our security checks, You can continue, but we advise against inputting personal information into this site.";
+    }
+    else if(score < 2 && score >= 1){
+      warningMessage = "This page has failed a LOT of our security checks. We advise against continuing, but continue if you absolutely have to.";
+    }
+    else if(score < 1){
+      warningMessage =  "TOO MANY RED FLAGS, HIT THAT CANCEL BUTTON RIGHT NOW!!!";
+    }
+    else{
+      warningMessage = "No action should be taken :D"; //This shouldn't appear because this is above the popup threshold
     }
   }
   
@@ -83,10 +122,8 @@
     isShortened();
     hasAt();
     unsafeExtension();
-    
-    if (rating < 0){
-      rating = 0;
-    }
+    severityMessage(rating);
+    //Don't need to check if rating is < 0, Math.max takes care of that
     if (rating <= 3.5){
       // Get the data for backend
       fetchData();
@@ -102,7 +139,7 @@
       };
       console.log(makeJSON(dataArray));
       // Show user the rating, security report, and prompt them to go back
-      if(window.confirm("This page could be unsafe; its HawkPhish Security Rating is " + rating + " stars.\n\nThis page's vulnerabilities are: (SCROLL DOWN IF NEEDED)\n" + atString + extensionString + httpsString + shortString + "\nWe recommend you press Cancel to return to the previous page now. If you wish to proceed at your own risk, press OK.") == false){
+      if(window.confirm("                            -HAWKPHISH SECURITY REPORT-\nThis page could be unsafe; its HawkPhish Security Rating is " + Math.max(0, rating) + "/5 stars.\n\nHawkPhish has detected: (SCROLL DOWN IF NEEDED)\n" + atString + extensionString + httpsString + shortString + "\n" + warningMessage) == false){
         history.back();
       }
     }
